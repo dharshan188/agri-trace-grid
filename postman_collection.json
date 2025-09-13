@@ -1,0 +1,119 @@
+{
+  "info": {
+    "name": "Farm-to-Fork API",
+    "description": "Complete API collection for Farm-to-Fork Transparency system",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3001/api"
+    },
+    {
+      "key": "jwt_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register Farmer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Farmer\",\n  \"email\": \"john@farm.com\",\n  \"password\": \"password123\",\n  \"role\": \"farmer\"\n}"
+            },
+            "url": "{{base_url}}/auth/register"
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@farm.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": "{{base_url}}/auth/login"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Batches",
+      "item": [
+        {
+          "name": "Create Batch",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"crop\": \"Tomatoes\",\n  \"location\": {\n    \"lat\": 40.7128,\n    \"lng\": -74.0060,\n    \"address\": \"Farm Location\"\n  },\n  \"metadata\": {\n    \"variety\": \"Roma\",\n    \"quantity\": 100,\n    \"unit\": \"kg\",\n    \"harvestDate\": \"2025-09-13\",\n    \"certifications\": [\"Organic\"]\n  }\n}"
+            },
+            "url": "{{base_url}}/batches"
+          }
+        },
+        {
+          "name": "Get Batch",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/batches/{{batch_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Verification",
+      "item": [
+        {
+          "name": "Verify Batch",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"batch_id\": \"{{batch_id}}\"\n}"
+            },
+            "url": "{{base_url}}/verify"
+          }
+        }
+      ]
+    }
+  ]
+}
